@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 export const Todo = () => {
+  var dat = new Date();
+  let timee = dat.toLocaleTimeString();
+  var currentDate = dat.toLocaleDateString();
   // !hooks section starts from here
 
   const [submitt, changeSubmit] = useState([]);
   const [inputt, change] = useState("");
+  const [currentTime, setTime] = useState("");
 
+  useEffect(() => {
+    setTime(`${currentDate}-${timee}`);
+  }, [currentTime]);
   //   !hooks section ends
 
   // ?function section starts
@@ -32,7 +41,7 @@ export const Todo = () => {
       <header>
         <h1>ToDo List</h1>
       </header>
-      <section>Date and time</section>
+      <section>{currentTime}</section>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -45,7 +54,18 @@ export const Todo = () => {
       <section>
         <ul>
           {submitt.map((value, index) => {
-            return <li key={index}>{value}</li>; //*  So if you use js function or methods then you have to return it otherwise it will not display the output on browser why you need to return it because you are using javascript map function so without returning the value you can't access it or retrieved the value
+            return (
+              <li key={index}>
+                {value}
+                <button>
+                  <MdDelete />
+                </button>
+
+                <button>
+                  <FaEdit />
+                </button>
+              </li>
+            ); //*  So if you use js function or methods then you have to return it otherwise it will not display the output on browser why you need to return it because you are using javascript map function so without returning the value you can't access it or retrieved the value
 
             //! so what is the work of key in <li> tag
 
